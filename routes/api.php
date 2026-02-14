@@ -24,11 +24,3 @@ Route::prefix('user')->controller(UserController::class)->group(function () {
     Route::post('/teste', 'testePost');
 });
 
-
-
-
-
-// 👇 AGORA sim ele fica por último
-Route::get('/{any}', function () {
-    return view('app');
-})->where('any', '.*');

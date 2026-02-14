@@ -22,7 +22,9 @@ class UserService extends Service
     {
         $users = $this->model->active(false)->get();
 
+        if (! $users)
         return $this->success($users);
+        
     }
 
 }
