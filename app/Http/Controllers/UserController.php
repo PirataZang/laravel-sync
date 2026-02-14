@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Service\UserService;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    protected UserService $service;
+
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function index()
+    {
+        return $this->service->index();
+    }
+
+    public function store(Request $request)
+    {
+        return $this->service->create($request->all());
+    }
+
+    public function show(string $id)
+    {
+        return $this->service->show($id);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        return $this->service->update($id, $request->all());
+    }
+
+    public function destroy(string $id)
+    {
+        return $this->service->delete($id);
+    }
+
+    public function teste()
+    {
+        return $this->service->userActives();
+    }
+
+    public function testePost(Request $request)
+    {
+        return $this->service->teste($request->all());
+    }
+}

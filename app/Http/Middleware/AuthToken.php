@@ -12,16 +12,16 @@ class AuthToken
     {
         $token = $request->bearerToken();
 
-        if (!$token) {
+        if (!$token) 
             return response()->json(['message' => 'Token não informado'], 401);
-        }
+        
 
         $user = User::where('token', $token)->first();
 
-        if (!$user) {
+        if (!$user) 
             return response()->json(['message' => 'Token inválido'], 401);
-        }
 
+        
         // opcional: deixar o usuário disponível
         $request->merge(['auth_user' => $user]);
 
