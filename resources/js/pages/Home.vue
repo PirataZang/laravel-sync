@@ -1,30 +1,25 @@
 <template>
     <div class="">
-        alguma cosia
-        <Button href="https://www.youtube.com" label="youtoba"/>
-        <Button to="alguma_dcoisa" label="youtoba"/>
-        <Button label="previous" @click="show('')"/>
-            
-        
+        <Button label="Salvar" color="#16a34a" />
+        <Button label="Excluir" color="#dc2626"  disabled />
+        <Button label="Excluir" color="#0d3ecf" />
     </div>
 </template>
 
 <script setup>
-    import Button from '../components/utils/Button.vue';
+import Button from '../components/utils/Button.vue'
 
-    const show = (text) => {
-        alert(`ola ${text}`);
-
-    };
+const show = (text) => {
+    alert(`ola ${text}`)
+}
 </script>
 
 <style lang="scss">
-    .test {
-        background-color: red;
+.test {
+    background-color: red;
 
-        &:hover {
-            background-color: aquamarine;
-        }
+    &:hover {
+        background-color: aquamarine;
     }
+}
 </style>
-
