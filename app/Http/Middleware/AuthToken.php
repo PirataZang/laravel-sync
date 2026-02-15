@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthToken
 {
@@ -12,19 +14,22 @@ class AuthToken
     {
         $token = $request->bearerToken();
 
-        if (!$token) 
+        if (!$token) {
             return response()->json(['message' => 'Token não informado'], 401);
-        
+        }
 
-        $user = User::where('token', $token)->first();
+        $user = User::where('token', $token)
+            ->where('token_expires_at', '>', now())
+            ->first();
 
-        if (!$user) 
-            return response()->json(['message' => 'Token inválido'], 401);
+        if (!$user) {
+            return response()->json(['message' => 'Token inválido ou expirado'], 401);
+        }
 
-        
-        // opcional: deixar o usuário disponível
-        $request->merge(['auth_user' => $user]);
+        // 👇 ESSA É A LINHA CERTA PRA API
+        Auth::setUser($user);
 
         return $next($request);
     }
+
 }

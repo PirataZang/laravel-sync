@@ -39,13 +39,13 @@ class UserController extends Controller
         return $this->service->delete($id);
     }
 
-    public function teste()
+    public function login(Request $request)
     {
-        return $this->service->userActives();
+        return $this->service->login($request->all());
     }
 
-    public function testePost(Request $request)
+    public function logout()
     {
-        return $this->service->teste($request->all());
+        return $this->service->logout();
     }
 }

@@ -11,7 +11,7 @@ Route::middleware("auth.token")->group(function () {
     // Users
     Route::prefix('user')->controller(UserController::class)->group(function () {
         Route::get('/', 'index');
-        Route::get('/teste', 'teste');
+        Route::post('/logout', 'logout');
     });
 });
 
@@ -21,6 +21,6 @@ Route::middleware("auth.token")->group(function () {
 // -------  PÚBLICAS  -------
 // --------------------------
 Route::prefix('user')->controller(UserController::class)->group(function () {
-    Route::post('/teste', 'testePost');
+    Route::post('/login', 'login');
 });
 
