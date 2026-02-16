@@ -1,14 +1,14 @@
 <template>
     <a v-if="href" :href="disabled ? undefined : href" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
-        <span>{{ label }}</span>
+        <span v-html="label"></span>
     </a>
 
     <router-link v-else-if="to" :to="disabled ? '' : to" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
-        <span>{{ label }}</span>
+        <span v-html="label"></span>
     </router-link>
 
     <button v-else class="button-style" :style="buttonStyle" :disabled="disabled">
-        <span>{{ label }}</span>
+        <span v-html="label"></span>
     </button>
 </template>
 

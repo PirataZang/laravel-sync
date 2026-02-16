@@ -1,9 +1,14 @@
 <template>
     <div class="page">
-        <Button label="aaaa" @click="alertShow" />
+        <Button label="<i class='fa-solid fa-user'></i> aaaa" @click="alertShow" />
         <div class="relative top-5px">
             <Grid :rowData="dados" :columnDefs="colunas" @update:selection="handleSelection" />
         </div>
+        <i class="fa-solid fa-user"></i>
+        <ChartsBase width="350px" type="line" label="Vendas" :labels="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun']" :data="[45, 67, 52, 78, 89, 64]" borderColor="rgb(59, 130, 246)" :backgroundColor="'rgba(59, 130, 246, 0.1)'" />
+        <ChartsBase width="350px" type="pie" label="Percentual" :labels="['Eletrônicos', 'Roupas', 'Alimentos', 'Outros']" :data="[30, 25, 20, 25]" border-color="white" :backgroundColor="['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)', 'rgba(75, 192, 192)']" />
+        <ChartsBase width="350px" type="bar" label="Percentual" :labels="['Eletrônicos', 'Roupas', 'Alimentos', 'Outros']" :data="[30, 25, 20, 25]" border-color="white" :backgroundColor="['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)', 'rgba(75, 192, 192)']" />
+        <ChartsBase width="350px" type="doughnut" label="Percentual" :labels="['Eletrônicos', 'Roupas', 'Alimentos', 'Outros']" :data="[30, 25, 20, 25]" border-color="white" :backgroundColor="['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)', 'rgba(75, 192, 192)']" />
     </div>
 </template>
 
@@ -24,7 +29,7 @@ const alertShow = () => {
 }
 
 const colunas = [
-    { headerName: 'ID', field: 'id', filter: true },
+    { headerName: 'ID', field: 'id', filter: true},
     { headerName: 'Nome', field: 'nome' },
     { headerName: 'Email', field: 'email' },
     { headerName: 'Idade', field: 'idade' },

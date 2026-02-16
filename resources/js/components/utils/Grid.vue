@@ -87,6 +87,8 @@ const localeText: LocaleText = {
     notContains: 'Não contém',
     startsWith: 'Começa com',
     endsWith: 'Termina com',
+    blank: 'Vazio',
+    notBlank: 'Não Vazio',
 }
 </script>
 

@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router/routes'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 createApp(App)
     .use(router)
