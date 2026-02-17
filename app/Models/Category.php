@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\CategoryType;
+use App\Models\Enum\CategoryType;
 use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Model;
 
