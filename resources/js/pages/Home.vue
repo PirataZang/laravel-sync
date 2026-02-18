@@ -23,19 +23,17 @@ import collect from 'collect.js'
 const selectedIds = ref<any[]>([])
 const data = ref<any[]>([])
 
-
-
 const handleSelection = (data: any[]) => {
     selectedIds.value = data.map((item) => item.id)
 }
 
 const colunas = [
-    { headerName: 'ID', field: 'id', filter: true },
+    { headerName: 'ID', field: 'id', filter: true, width: 95 },
     { headerName: 'Nome', field: 'name' },
     { headerName: 'Email', field: 'email' },
-    { headerName: 'Ativo', field: 'active', align: 'center', width: 95},
-    { headerName: 'Cadastrado em', field: 'created_at' },
-    { headerName: 'Atualizado em', field: 'updated_at' },
+    { headerName: 'Ativo', field: 'active', align: 'center', width: 95 },
+    { headerName: 'Cadastrado em', field: 'created_at', type: 'date' },
+    { headerName: 'Atualizado em', field: 'updated_at', type: 'datetime' },
 ]
 
 onMounted(async () => {
