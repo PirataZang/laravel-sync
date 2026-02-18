@@ -2,33 +2,42 @@
 
 namespace App\Service;
 
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Cache;
 
 abstract class Service
 {
     protected Model $model;
+    protected $key;
 
     public function __construct()
     {
         $this->model = app($this->modelClass());
+        $this->key = $this->model->getTable() . "_{" . FacadesAuth::user()->id . "}";
     }
 
     abstract protected function modelClass(): string;
 
     public function index()
     {
-        $items = $this->model->all();
+        $items = Cache::remember($this->key, 90, function () {
+            return $this->model->all();
+        });
 
         return $this->success($items);
     }
 
     public function create(array $data)
     {
+        Cache::forget($this->key);
         return $this->model->create($data);
     }
 
     public function update(int|string $id, array $data)
     {
+        Cache::forget($this->key);
         $item = $this->model->findOrFail($id);
         $item->update($data);
 
@@ -38,6 +47,7 @@ abstract class Service
 
     public function delete(int|string $id)
     {
+        Cache::forget($this->key);
         $item = $this->model->findOrFail($id);
         return $item->delete();
     }
