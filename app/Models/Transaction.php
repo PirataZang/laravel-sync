@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Enum\CategoryType;
 use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Transaction extends Model
 {
-
     protected static function booted()
     {
         static::addGlobalScope(new UserScope());
@@ -17,17 +15,17 @@ class Category extends Model
     protected $fillable = [
         "name",
         "user_id",
-        "active",
-        "type",
+        "category_id",
+        "name",
+        "description",
+        "amount",
         "created_at",
         "updated_at",
     ];
 
     protected $casts = [
-        "active" => "boolean",
-        'type' => CategoryType::class,
+        "amount" => "decimal",
     ];
-
 
 
     public function user()
@@ -35,10 +33,8 @@ class Category extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function transactions()
+    public function category()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->belongsTo(Category::class);
     }
-
-
 }

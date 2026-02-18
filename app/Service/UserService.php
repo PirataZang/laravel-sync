@@ -13,7 +13,7 @@ class UserService extends Service
     {
         return User::class;
     }
-    
+
     public function create(array $data)
     {
         if (!empty($data['password']))

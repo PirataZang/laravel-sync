@@ -17,7 +17,9 @@ abstract class Service
 
     public function index()
     {
-        return $this->model->all();
+        $items = $this->model->all();
+
+        return $this->success($items);
     }
 
     public function create(array $data)
@@ -30,7 +32,8 @@ abstract class Service
         $item = $this->model->findOrFail($id);
         $item->update($data);
 
-        return $item;
+        return $this->success($item);
+
     }
 
     public function delete(int|string $id)
@@ -41,7 +44,9 @@ abstract class Service
 
     public function show(int|string $id)
     {
-        return $this->model->findOrFail($id);
+        $item = $this->model->findOrFail($id);
+        return $this->success($item);
+
     }
 
 
