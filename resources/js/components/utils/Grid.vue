@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { AgGridVue } from 'ag-grid-vue3'
 import type { ColDef, ColGroupDef, GridApi, LocaleText } from 'ag-grid-community'
 import { ModuleRegistry, ClientSideRowModelModule, PaginationModule, RowSelectionModule, TextFilterModule, NumberFilterModule, DateFilterModule, LocaleModule, ValidationModule } from 'ag-grid-community'
@@ -128,15 +128,6 @@ const columnTypes = {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(params.value)
         },
     },
-
-    banana: {
-        filter: 'agStringColumnFilter',
-        valueFormatter: (params: any) => {
-            if(!params.value) return ''
-
-            return params.value.toUpperCase()
-        }
-    }
 }
 </script>
 
