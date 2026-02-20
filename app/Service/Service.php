@@ -15,7 +15,7 @@ abstract class Service
     public function __construct()
     {
         $this->model = app($this->modelClass());
-        $this->key = $this->model->getTable() . "_{" . FacadesAuth::user()->id . "}";
+        $this->key = 2;
     }
 
     abstract protected function modelClass(): string;
