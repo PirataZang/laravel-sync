@@ -8,12 +8,12 @@
 import { ref } from 'vue'
 import { AgGridVue } from 'ag-grid-vue3'
 import type { ColDef, ColGroupDef, GridApi, LocaleText } from 'ag-grid-community'
-import { ModuleRegistry, ClientSideRowModelModule, PaginationModule, RowSelectionModule, TextFilterModule, NumberFilterModule, DateFilterModule, LocaleModule, ValidationModule } from 'ag-grid-community'
+import { ModuleRegistry, ClientSideRowModelModule, CellStyleModule, PaginationModule, RowSelectionModule, TextFilterModule, NumberFilterModule, DateFilterModule, LocaleModule, ValidationModule } from 'ag-grid-community'
 
 /* ===============================
    REGISTRO DOS MÓDULOS
 ================================ */
-ModuleRegistry.registerModules([ClientSideRowModelModule, PaginationModule, RowSelectionModule, TextFilterModule, NumberFilterModule, DateFilterModule, LocaleModule, ValidationModule])
+ModuleRegistry.registerModules([ClientSideRowModelModule, CellStyleModule, PaginationModule, RowSelectionModule, TextFilterModule, NumberFilterModule, DateFilterModule, LocaleModule, ValidationModule])
 
 /* ===============================
    PROPS (TIPADAS DE VERDADE)
@@ -131,7 +131,7 @@ const columnTypes = {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .grid-wrapper {
     width: 100%;
     height: 80vh;
@@ -139,6 +139,26 @@ const columnTypes = {
     .grid {
         width: 100%;
         height: 100%;
+        // Types
+        .cell-center {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cell-right {
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            text-align: right;
+        }
+        .cell-left {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            text-align: left;
+        }
     }
 }
 </style>

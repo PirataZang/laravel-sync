@@ -1,9 +1,9 @@
 <template>
-    <a v-if="href" :href="disabled ? undefined : href" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
+    <a v-if="type == 'link'" :href="disabled ? undefined : href" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
         <span v-html="label"></span>
     </a>
 
-    <router-link v-else-if="to" :to="disabled ? '' : to" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
+    <router-link v-else-if="type == 'router'" :to="disabled ? '' : href" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
         <span v-html="label"></span>
     </router-link>
 
@@ -21,10 +21,14 @@ const props = defineProps({
         required: true,
         default: 'Botão',
     },
+    type: {
+        type: String,
+        default: '',
+    },
     to: {
         type: String,
-        default: null,
     },
+
     href: {
         type: String,
         default: null,
