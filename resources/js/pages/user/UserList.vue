@@ -2,6 +2,11 @@
     <div class="page">
         <div>Listagem de usuários</div>
         <div class="relative top-5px">
+            <div class="buttons">
+                <Button color="#28a745" label="Criar"  type="router" :href="'/user/form'" />
+                <Button color="#007bff" label="Editar" type="router" :disabled="selectedIds.length !== 1" :href="`/user/form/${selectedIds[0]}`" />
+                <Button color="#dc3545" label="Deletar" :disabled="selectedIds.length === 0" @click="deleteUsers" />
+            </div>
             <Grid :rowData="data" :columnDefs="colunas" @update:selection="handleSelection" />
         </div>
     </div>
@@ -11,6 +16,7 @@
 import { onMounted, ref } from 'vue'
 import { api } from '../../service/api'
 import Grid from '../../components/utils/Grid.vue'
+import Button from '../../components/Utils/Button.vue'
 
 const selectedIds = ref<any[]>([])
 const data = ref<any[]>([])

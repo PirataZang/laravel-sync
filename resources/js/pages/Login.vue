@@ -11,13 +11,13 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import Input from '../components/utils/Input.vue';
-import Button from '../components/Utils/Button.vue';
-import { api } from '../service/api';
-import router from '../router/routes';
+import { reactive, ref } from 'vue'
+import Input from '../components/utils/Input.vue'
+import Button from '../components/Utils/Button.vue'
+import { api } from '../service/api'
+import router from '../router/routes'
 
-const form = reactive({
+const form = ref({
     email: '',
     password: '',
 })
@@ -26,15 +26,11 @@ const showPass = ref(false)
 
 const login = async () => {
     try {
-        const response = await api.post("/user/login", form)
+        const response = await api.post('/user/login', form.value)
 
         localStorage.setItem('auth_token', response.data.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.data.user))
         router.push('/')
-
-
-    } catch (error) {
-
-    }
+    } catch (error) {}
 }
 </script>

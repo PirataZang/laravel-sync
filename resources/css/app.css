@@ -4,12 +4,3 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
-
-* {
-    font-family: 'Inter', sans-serif;
-}
-
-body {
-    background-color: #f8f9fa;
-    margin: 0;
-}

@@ -1,15 +1,17 @@
 <template>
-    <div class="inputWrapper" :style="{ width: width }">
+    <div class="inputWrapper" :class="attrs.class" :style="{ width }">
         <label v-html="label" class="inputLabel"></label>
 
         <div class="inputGroup" :class="{ isDisabled: disabled }">
-            <input v-bind="$attrs" :type="type" :placeholder="placeholder" v-model="localValue" :disabled="disabled" :class="{ inputField: true, isSmall: small }" />
+            <input v-bind="inputAttrs" v-model="model" :type="type" :name="inputName" :autocomplete="autocompleteValue" :disabled="disabled" :class="['inputField', { isSmall: small }]" />
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed, useAttrs } from 'vue'
+
+const attrs = useAttrs()
 
 const props = defineProps({
     modelValue: [String, Number],
@@ -19,22 +21,34 @@ const props = defineProps({
     type: { type: String, default: 'text' },
     disabled: { type: Boolean, default: false },
     small: { type: Boolean, default: false },
-    required: { type: Boolean, default: false }, // 👈 novo!
+    name: { type: String, default: null },
+    autocomplete: { type: String, default: null },
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const localValue = ref(props.modelValue)
+/* v-model proxy correto */
+const model = computed({
+    get: () => props.modelValue,
+    set: (val) => emit('update:modelValue', val),
+})
 
-watch(
-    () => props.modelValue,
-    (val) => {
-        if (val !== localValue.value) localValue.value = val
-    },
-)
+/* Gera name único caso não seja passado */
+const generatedName = 'inp_' + Math.random().toString(36).slice(2, 9)
 
-watch(localValue, (val) => {
-    emit('update:modelValue', val)
+const inputName = computed(() => props.name || generatedName)
+
+/* Controle real de autocomplete */
+const autocompleteValue = computed(() => {
+    if (props.autocomplete) return props.autocomplete
+    if (props.type === 'password') return 'new-password'
+    return 'off'
+})
+
+/* Remove class dos attrs para não duplicar no input */
+const inputAttrs = computed(() => {
+    const { class: _class, ...rest } = attrs
+    return rest
 })
 </script>
 
@@ -89,31 +103,9 @@ watch(localValue, (val) => {
             }
         }
 
-        &.hasError {
-            .inputField {
-                border-color: #ef4444;
-                box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
-            }
-
-            &:focus {
-                border-color: #ef4444;
-            }
-
-            .inputErrorIcon {
-                color: #ef4444;
-            }
-        }
-
         .isSmall {
             padding: 1px;
             padding-left: 5px;
-        }
-
-        .inputErrorIcon {
-            position: absolute;
-            right: 0.75rem;
-            font-size: 0.875rem;
-            color: #ef4444;
         }
     }
 

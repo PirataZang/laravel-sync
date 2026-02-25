@@ -1,0 +1,36 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+}
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+/* ===== GRID SYSTEM 12 COLUNAS ===== */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 10px;
+
+    @for $i from 1 through 12 {
+        .col-#{$i} {
+            flex: 0 0 calc((100% / 12) * #{$i} - 1rem);
+            max-width: calc((100% / 12) * #{$i} - 1rem);
+        }
+    }
+
+}
