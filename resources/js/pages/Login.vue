@@ -29,6 +29,7 @@ const login = async () => {
         const response = await api.post("/user/login", form)
 
         localStorage.setItem('auth_token', response.data.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.data.user))
         router.push('/')
 
 

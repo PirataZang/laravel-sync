@@ -159,6 +159,19 @@ const columnTypes = {
             align-items: start;
             text-align: left;
         }
+
+        @media (max-width: 768px) {
+            .ag-paging-row-summary-panel,
+            .ag-paging-page-size {
+                display: none;
+            }
+
+            .ag-paging-page-summary-panel {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
     }
 }
 </style>

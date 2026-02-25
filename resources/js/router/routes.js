@@ -5,9 +5,9 @@ import Login from '../pages/Login.vue'
 import UserList from '../pages/user/UserList.vue'
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/login', component: Login},
-    { path: '/user/list', component: UserList},
+    { path: '/login', component: Login, meta: {layout: 'clean'}},
+    { path: '/', component: Home , meta: {layout: 'default'}},
+    { path: '/user/list', component: UserList, meta: {layout: 'default'}},
 ]
 
 const router = createRouter({
