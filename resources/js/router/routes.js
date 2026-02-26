@@ -12,16 +12,17 @@ const routes = [
         meta: { layout: 'clean' }
     },
     {
-        path: '/',
+        path: '/home',
         component: Home,
         meta: { layout: 'default' }
     },
 
     // User
     {
-        path: '/user/list',
+        path: '/user',
         component: UserList,
-        meta: { layout: 'default' }
+        name: 'UserList',
+        meta: { layout: 'default' },
     },
     {
         path: '/user/form/:id?',

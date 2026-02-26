@@ -27,8 +27,8 @@ const props = defineProps({
     items: {
         type: Array,
         default: () => [
-            { name: 'home', to: '/', icon: 'fas fa-home', title: 'Home' },
-            { name: 'users', to: '/user/list', icon: 'fas fa-users', title: 'Users' },
+            { name: 'home', to: '/home', icon: 'fas fa-home', title: 'Home' },
+            { name: 'users', to: '/user', icon: 'fas fa-users', title: 'Users' },
             { name: 'login', to: '/login', icon: 'fas fa-sign-in-alt', title: 'Login' },
         ],
     },
@@ -52,7 +52,7 @@ const route = useRoute()
 
 function isActive(item) {
     if (!item || !item.to) return false
-    return route.path === item.to
+    return route.path === item.to || route.path.startsWith(item.to + '/')
 }
 </script>
 

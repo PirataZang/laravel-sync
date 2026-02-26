@@ -1,17 +1,14 @@
 <template>
     <div class="user-form">
         <h1>{{ isEdit ? 'Editar' : 'Criar' }} usuário</h1>
-        <form @submit.prevent="submit" autocomplete="off">
+        <form @submit.prevent="save(stay)" autocomplete="off" class="form-container">
             <div class="row">
                 <Input class="col-3" required v-model="form.name" label="Nome" />
                 <Input class="col-3" required v-model="form.email" label="Email" />
-                <Input class="col-1" required v-model="form.email" label="Email" />
-                <Input class="col-2" required v-model="form.email" label="Email" />
-                <Input class="col-2" required v-model="form.email" label="Email" />
+                <Input class="col-3" type="password" v-model="form.password" label="Senha" />
             </div>
-
-            <Button type="button" @click="toggleShow" :label="showPass ? 'Ocultar senha' : 'Mostrar senha'" />
-            <Button type="submit" :label="isEdit ? 'Salvar' : 'Criar'" />
+            <Button type="submit" @click="stay = false" :label="isEdit ? 'Salvar' : 'Cadastrar'" />
+            <Button type="submit" @click="stay = true" :label="isEdit ? 'Salvar e Continuar' : 'Cadastrar'" />
         </form>
     </div>
 </template>
@@ -20,22 +17,73 @@
 import { onMounted, reactive, ref } from 'vue'
 import Input from '../../components/utils/Input.vue'
 import Button from '../../components/Utils/Button.vue'
+import { useRoute } from 'vue-router'
+import { api } from '../../service/api'
+import Swal from 'sweetalert2'
+import router from '../../router/routes'
 
 const isEdit = ref(false)
-const showPass = ref(false)
+const route = useRoute()
+const stay = ref(false)
 
+// Métodos de ciclo de vida
+onMounted(() => {
+    if (route.params.id) {
+        isEdit.value = true
+        reload()
+    }
+})
+
+// Funções
 const form = reactive({
+    id: route.params.id || null,
     name: '',
     email: '',
     password: '',
 })
 
-const toggleShow = () => {
-    showPass.value = !showPass.value
+const showAlert = () => {
+    Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    }).fire({
+        title: 'Sucesso!',
+        text: `Usuário ${isEdit.value ? 'atualizado' : 'criado'} com sucesso!`,
+        icon: 'success',
+    })
 }
 
-const submit = async () => {
-    console.log('submit', { ...form })
+const reload = async () => {
+    if (!form.id) return
+
+    try {
+        const { data } = await api.get('user/' + form.id)
+        Object.assign(form, data?.data || {})
+    } catch (error) {
+        console.error('Error loading user:', error)
+    }
+}
+
+const save = async () => {
+    try {
+        const endpoint = isEdit.value ? `user/${form.id}` : 'user'
+        const method = isEdit.value ? 'put' : 'post'
+        const payload = { ...form }
+        const response = await api[method](endpoint, payload)
+
+        showAlert()
+
+        if (!stay.value) router.push('/user')
+    } catch (error) {
+        Swal.fire({
+            title: 'Erro!',
+            text: `Ocorreu um erro ao ${isEdit.value ? 'atualizar' : 'salvar'} o usuário.`,
+            icon: 'error',
+        })
+    }
 }
 </script>
 

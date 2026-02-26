@@ -25,15 +25,16 @@ class UserService extends Service
 
     public function update(int|string $id, array $data)
     {
-        if (isset($data['password'])) {
 
+        if (isset($data['password'])) {
             // se senha vier vazia → não atualiza
             if (empty($data['password']))
                 unset($data['password']);
             else
                 $data['password'] = Hash::make($data['password']);
+        } else
+            $data['password'] = $this->model->where('id', $id)->first()['password'];
 
-        }
 
         return parent::update($id, $data);
     }

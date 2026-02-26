@@ -18,8 +18,18 @@ body {
     --dark-color: #343a40;
 }
 
-/* ===== GRID SYSTEM 12 COLUNAS ===== */
+.form-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+    @media (max-width: 758px) {
+        padding: 1rem;
+    }
+}
+
+/* ===== GRID SYSTEM 12 COLUNAS ===== */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -30,6 +40,15 @@ body {
         .col-#{$i} {
             flex: 0 0 calc((100% / 12) * #{$i} - 1rem);
             max-width: calc((100% / 12) * #{$i} - 1rem);
+        }
+    }
+
+    @media (max-width: 758px) {
+        @for $i from 1 through 6 {
+            .col-#{$i} {
+                flex: 0 0 calc((100% / 6) * #{$i} - 1rem);
+                max-width: calc((100% / 6) * #{$i} - 1rem);
+            }
         }
     }
 

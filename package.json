@@ -21,6 +21,7 @@
         "ag-grid-vue3": "^35.1.0",
         "chart.js": "^4.5.1",
         "collect.js": "^4.36.1",
+        "sweetalert2": "^11.26.20",
         "vue": "^3.5.28",
         "vue-router": "^5.0.2"
     }

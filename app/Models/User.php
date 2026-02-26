@@ -37,7 +37,7 @@ class User extends Authenticatable
     }
 
 
-// --------------------------
+    // --------------------------
 // --------  SCOPES  --------
 // --------------------------
     public function scopeActive($query, $active = true): Builder
@@ -47,22 +47,22 @@ class User extends Authenticatable
 
 
 
-// -----------------------------
+    // -----------------------------
 // --------  RELATIONS  --------
 // -----------------------------
 
-  public function categories()
-  {
-    return $this->hasMany(Category::class);
-  }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 
-  public function transactions()
-  {
-    return $this->hasMany(Transactions::class);
-  }
-
-
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 
 
-    
+
+
+
 }

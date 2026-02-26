@@ -13,8 +13,12 @@ import { computed, useAttrs } from 'vue'
 
 const attrs = useAttrs()
 
+const model = defineModel({
+    type: [String, Number],
+    default: '',
+})
+
 const props = defineProps({
-    modelValue: [String, Number],
     width: { type: String, default: '' },
     label: String,
     placeholder: String,
@@ -25,27 +29,16 @@ const props = defineProps({
     autocomplete: { type: String, default: null },
 })
 
-const emit = defineEmits(['update:modelValue'])
-
-/* v-model proxy correto */
-const model = computed({
-    get: () => props.modelValue,
-    set: (val) => emit('update:modelValue', val),
-})
-
-/* Gera name único caso não seja passado */
 const generatedName = 'inp_' + Math.random().toString(36).slice(2, 9)
 
 const inputName = computed(() => props.name || generatedName)
 
-/* Controle real de autocomplete */
 const autocompleteValue = computed(() => {
     if (props.autocomplete) return props.autocomplete
     if (props.type === 'password') return 'new-password'
     return 'off'
 })
 
-/* Remove class dos attrs para não duplicar no input */
 const inputAttrs = computed(() => {
     const { class: _class, ...rest } = attrs
     return rest

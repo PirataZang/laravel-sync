@@ -30,7 +30,7 @@ const login = async () => {
 
         localStorage.setItem('auth_token', response.data.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.data.user))
-        router.push('/')
+        router.push('/home')
     } catch (error) {}
 }
 </script>
