@@ -23,9 +23,10 @@ abstract class Service
 
     public function index($request = [])
     {
-        $model = $this->applyFilters($request);
-        ds($model);
-        return $model;
+        $items = Cache::remember($this->key, 90, function () use ($request) {
+            return $this->applyFilters($request);
+        });
+        return $items;
     }
 
     public function create(array $data)

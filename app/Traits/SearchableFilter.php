@@ -97,11 +97,12 @@ trait SearchableFilter
 
             switch ($operator) {
                 case 'like':
-                    $query->where($field, 'like', "%{$value}%");
+                    // Busca case-insensitive: transforma tanto o campo quanto o valor para minúsculas
+                    $query->whereRaw("LOWER($field) LIKE ?", ["%" . strtolower($value) . "%"]);
                     break;
 
                 case 'ilike': // case-insensitive like
-                    $query->where($field, 'ilike', "%{$value}%");
+                    $query->where($field, 'ilike', "%" . strtolower($value) . "%");
                     break;
 
                 case 'in':
