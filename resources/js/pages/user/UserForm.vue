@@ -69,7 +69,7 @@ const reload = async () => {
 
 const save = async () => {
     try {
-        const endpoint = isEdit.value ? `user/${form.id}` : 'user'
+        const endpoint = isEdit.value ? `user/${form.id}` : 'user/create'
         const method = isEdit.value ? 'put' : 'post'
         const payload = { ...form }
         const response = await api[method](endpoint, payload)

@@ -12,7 +12,7 @@ const routes = [
         meta: { layout: 'clean' }
     },
     {
-        path: '/home',
+        path: '/',
         component: Home,
         meta: { layout: 'default' }
     },

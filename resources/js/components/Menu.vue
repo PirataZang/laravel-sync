@@ -27,9 +27,8 @@ const props = defineProps({
     items: {
         type: Array,
         default: () => [
-            { name: 'home', to: '/home', icon: 'fas fa-home', title: 'Home' },
-            { name: 'users', to: '/user', icon: 'fas fa-users', title: 'Users' },
-            { name: 'login', to: '/login', icon: 'fas fa-sign-in-alt', title: 'Login' },
+            { name: 'Página Inicial', to: '/', icon: 'fas fa-home', title: 'Home' },
+            { name: 'Usuários', to: '/user', icon: 'fas fa-users', title: 'Users' },
         ],
     },
     showMenu: { type: Boolean, default: false },

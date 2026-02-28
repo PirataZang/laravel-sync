@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware("auth.token")->group(function () {
     //? Users
     Route::prefix('user')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
+        Route::post('/', 'index');
+        Route::post('/create', 'store');
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
         Route::delete('/{id}', 'destroy');
