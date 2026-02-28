@@ -3,8 +3,8 @@
         <div>Listagem de usuários</div>
         <div class="container">
             <div class="filters">
-                <div class="filters-content">
-                    <Input v-model="filters.name.value" label="Pesquisar por nome ou email" placeholder="Digite para filtrar..." width="500px" />
+                <div class="row">
+                    <Input v-model="filters.name.value" label="Pesquisar por nome ou email" placeholder="Digite para filtrar..." class="col-6" />
                 </div>
                 <div class="filters-content">
                     <Button color="#007bff" label="Buscar" @click="reload" />
