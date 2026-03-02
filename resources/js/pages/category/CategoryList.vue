@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <h1>Listagem de usuários</h1>
+        <h1>Listagem de Categorias</h1>
         <div class="container">
             <div class="box filters">
                 <div class="row">

@@ -1,9 +1,15 @@
 <template>
     <div>
-        <div v-if="showMenu" class="menu-backdrop" @click="close" aria-hidden="true"></div>
+        <!-- backdrop só aparece em modo overlay/móvel -->
+        <div v-if="showMenu && overlay" class="menu-backdrop" @click="close" aria-hidden="true"></div>
 
-        <aside v-if="showMenu" class="app-menu" role="navigation" @keydown.esc="close">
-            <div class="panel-header">
+        <aside
+            v-if="showMenu"
+            :class="['app-menu', { collapsed: collapsed } ]"
+            role="navigation"
+            @keydown.esc="close"
+        >
+            <div v-if="overlay" class="panel-header">
                 <button class="close-btn" @click="close" aria-label="Fechar menu"><i class="fas fa-times"></i></button>
             </div>
 
@@ -27,14 +33,19 @@ const props = defineProps({
     items: {
         type: Array,
         default: () => [
-            { name: 'Página Inicial', to: '/', icon: 'fas fa-home', title: 'Home' },
-            { name: 'Usuários', to: '/user', icon: 'fas fa-users', title: 'Users' },
+            { name: 'home', to: '/', icon: 'fas fa-home', title: 'Página Inicial' },
+            { name: 'users', to: '/user', icon: 'fas fa-users', title: 'Usuários' },
         ],
     },
     showMenu: { type: Boolean, default: false },
+    // indica que o menu deve aparecer apenas como ícones
+    collapsed: { type: Boolean, default: false },
+    // use este flag para renderizar como um overlay móvel
+    overlay: { type: Boolean, default: false },
 })
 
-const { showMenu } = toRefs(props)
+// transformar props em refs para uso no template
+const { showMenu, collapsed, overlay } = toRefs(props)
 
 const emit = defineEmits(['update:showMenu', 'close'])
 
@@ -56,24 +67,45 @@ function isActive(item) {
 </script>
 
 <style scoped lang="scss">
-.menu-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 9998;
-}
 .app-menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
+    position: relative;
+    height: stretch;
     width: 250px;
     background: #111827;
     color: #fff;
-    z-index: 9999;
     display: flex;
     flex-direction: column;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.6);
+    transition: width 0.2s ease;
+}
+/* estado colapsado apenas mostra ícones */
+.app-menu.collapsed {
+    width: 60px;
+}
+.app-menu.collapsed .menu-text {
+    display: none;
+}
+.app-menu.collapsed .panel-header {
+    display: none;
+}
+
+.menu-text {
+    transition: opacity 0.2s ease;
+}
+.app-menu.collapsed .menu-text {
+    opacity: 0;
+}
+
+/* mobile overlay - ocupa metade da tela */
+@media (max-width: 768px) {
+    .app-menu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 50vw;
+        z-index: 1000;
+    }
 }
 .panel-header {
     display: flex;

@@ -16,13 +16,16 @@ abstract class Service
     public function __construct()
     {
         $this->model = app($this->modelClass());
-        $this->key = 2;
+        $this->key = strtolower(class_basename($this->modelClass())) . '_list';
     }
 
     abstract protected function modelClass(): string;
 
     public function index($request = [])
     {
+        if(empty($request['filters']))
+            return $this->applyFilters($request);
+
         $items = Cache::remember($this->key, 90, function () use ($request) {
             return $this->applyFilters($request);
         });

@@ -1,6 +1,6 @@
 <template>
     <div class="grid-wrapper ag-theme-quartz">
-        <AgGridVue class="grid" theme="legacy" :rowData="rowData" :columnDefs="columnDefs" :columnTypes="columnTypes" :defaultColDef="defaultColDef" :localeText="localeText" pagination :paginationAutoPageSize="true" :rowSelection="rowSelection" @grid-ready="onGridReady" @selection-changed="onSelectionChanged" />
+        <AgGridVue class="grid" theme="legacy" :rowData="rowData" :columnDefs="columnDefs" :columnTypes="columnTypes" :defaultColDef="defaultColDef" :localeText="localeText" pagination :paginationPageSize="paginationPageSize" :rowSelection="rowSelection" @grid-ready="onGridReady" @selection-changed="onSelectionChanged" @pagination-changed="onPaginationChanged" />
     </div>
 </template>
 
@@ -22,12 +22,18 @@ const props = defineProps<{
     rowData: any[]
     columnDefs: (ColDef | ColGroupDef)[]
     defaultColDef?: ColDef
+    paginationPageSize?: number
 }>()
+
+const paginationPageSize = ref(props.paginationPageSize || 10)
+
 /* ===============================
    EMITS
 ================================ */
 const emit = defineEmits<{
     (e: 'update:selection', value: any[]): void
+    (e: 'update:page', value: number): void
+    (e: 'update:pageSize', value: number): void
 }>()
 
 /* ===============================
@@ -45,6 +51,16 @@ const onSelectionChanged = () => {
     const selectedData = gridApi.value.getSelectedNodes().map((node) => node.data)
 
     emit('update:selection', selectedData)
+}
+
+const onPaginationChanged = () => {
+    if (!gridApi.value) return
+
+    const currentPage = gridApi.value.paginationGetCurrentPage() + 1 // ag-grid usa 0-based index, convertemos para 1-based
+    const pageSize = gridApi.value.paginationGetPageSize()
+
+    emit('update:page', currentPage)
+    emit('update:pageSize', pageSize)
 }
 
 /* ===============================
