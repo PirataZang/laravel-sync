@@ -4,6 +4,7 @@ import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import UserList from '../pages/user/UserList.vue'
 import UserForm from '../pages/user/UserForm.vue'
+import CategoryList from '../pages/category/CategoryList.vue'
 
 const routes = [
     {
@@ -30,6 +31,13 @@ const routes = [
         name: 'UserForm',
         meta: { layout: 'default' }
     },
+
+    // Category
+    {
+        path: '/category',
+        component: CategoryList,
+        name: 'CategoryList',
+    }
 ]
 
 const router = createRouter({

@@ -16,7 +16,8 @@
                 </div>
             </div>
             <div class="grid-container">
-                <Grid :rowData="data" :paginationPageSize="pageSize" :columnDefs="colunas" @update:selection="handleSelection" @update:page="currentPage = $event" @update:pageSize="pageSize = $event" />
+                <Grid v-if="!isMobile()" :rowData="data" :paginationPageSize="pageSize" :columnDefs="colunas" @update:selection="handleSelection" @update:page="currentPage = $event" @update:pageSize="pageSize = $event" />
+                <UserCard v-else  :users="data" @select="handleSelection" />
             </div>
         </div>
     </div>
@@ -29,6 +30,8 @@ import Grid from '../../components/utils/Grid.vue'
 import Button from '../../components/Utils/Button.vue'
 import Input from '../../components/Utils/Input.vue'
 import Swal from 'sweetalert2'
+import { isMobile } from '../../helpers'
+import UserCard from '../../components/user/UserCard.vue'
 
 const selectedIds = ref<any[]>([])
 const data = ref<any[]>([])

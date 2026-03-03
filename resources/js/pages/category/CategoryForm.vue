@@ -1,11 +1,10 @@
 <template>
-    <div class="user-form">
-        <h1>{{ isEdit ? 'Editar' : 'Criar' }} usuário</h1>
+    <div class="category-form">
+        <h1>{{ isEdit ? 'Editar' : 'Criar' }} Categoria</h1>
         <form @submit.prevent="save(stay)" autocomplete="off" class="form-container">
             <div class="row">
-                <Input class="col-3" required v-model="form.name" label="Nome" />
-                <Input class="col-3" required v-model="form.email" label="Email" />
-                <Input class="col-3" type="password" v-model="form.password" label="Senha" />
+                <Input v-model="form.name" label="Nome" placeholder="Digite o nome da categoria" required class="col-6" />
+                <Input v-model="form.type" label="Descrição" placeholder="Digite a descrição da categoria" class="col-6" />
             </div>
             <Button type="submit" @click="stay = false" :label="isEdit ? 'Salvar' : 'Cadastrar'" />
             <Button type="submit" @click="stay = true" :label="isEdit ? 'Salvar e Continuar' : 'Cadastrar'" />

@@ -10,9 +10,9 @@
                     <Button color="#007bff" label="<i class='fa-solid fa-magnifying-glass'></i> Buscar" @click="reload" />
                 </div>
                 <div class="buttons">
-                    <Button color="#28a745" label="<i class='fa-solid fa-plus'></i> Criar" type="router" :href="'/user/form'" />
-                    <Button color="#007bff" label="<i class='fa-solid fa-pen'></i> Editar" type="router" :disabled="selectedIds.length !== 1" :href="`/user/form/${selectedIds[0]}`" />
-                    <Button color="#dc3545" label="<i class='fa-solid fa-trash-can'></i> Deletar" :disabled="selectedIds.length === 0" @click="deleteUsers" />
+                    <Button color="#28a745" label="<i class='fa-solid fa-plus'></i> Criar" type="router" :href="'/category/form'" />
+                    <Button color="#007bff" label="<i class='fa-solid fa-pen'></i> Editar" type="router" :disabled="selectedIds.length !== 1" :href="`/category/form/${selectedIds[0]}`" />
+                    <Button color="#dc3545" label="<i class='fa-solid fa-trash-can'></i> Deletar" :disabled="selectedIds.length === 0" @click="deleteCategorys" />
                 </div>
             </div>
             <div class="grid-container">
@@ -67,7 +67,7 @@ const reload = async () => {
     }
 
     try {
-        const response = await api.get('user', {
+        const response = await api.get('category', {
             params: payload,
         })
         data.value = response.data.data
@@ -76,10 +76,10 @@ const reload = async () => {
     }
 }
 
-const deleteUsers = async () => {
+const deleteCategorys = async () => {
     if (!selectedIds.value.length) return
     try {
-        await Promise.all(selectedIds.value.map((id) => api.delete(`user/${id}`)))
+        await Promise.all(selectedIds.value.map((id) => api.delete(`category/${id}`)))
 
         // Remove todos de uma vez
         data.value = data.value.filter((item) => !selectedIds.value.includes(item.id))

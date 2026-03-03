@@ -6,6 +6,16 @@
                 <Input class="col-3" required v-model="form.name" label="Nome" />
                 <Input class="col-3" required v-model="form.email" label="Email" />
                 <Input class="col-3" type="password" v-model="form.password" label="Senha" />
+                <!-- custom select para perfil/role -->
+                <Select
+                    class="col-3"
+                    multiple
+                    label="Perfil"
+                    search
+                    v-model="form.role"
+                    :options="roleOptions"
+                    placeholder="Perfil"
+                />
             </div>
             <Button type="submit" @click="stay = false" :label="isEdit ? 'Salvar' : 'Cadastrar'" />
             <Button type="submit" @click="stay = true" :label="isEdit ? 'Salvar e Continuar' : 'Cadastrar'" />
@@ -21,10 +31,45 @@ import { useRoute } from 'vue-router'
 import { api } from '../../service/api'
 import Swal from 'sweetalert2'
 import router from '../../router/routes'
+import Select from '../../components/utils/Select.vue'
 
 const isEdit = ref(false)
 const route = useRoute()
 const stay = ref(false)
+
+// opções de perfil/role do usuário
+const roleOptions = [
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Comum' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+    { value: 3, label: 'Client' },
+]
 
 // Métodos de ciclo de vida
 onMounted(() => {
@@ -40,6 +85,7 @@ const form = reactive({
     name: '',
     email: '',
     password: '',
+    role: null,
 })
 
 const showAlert = () => {

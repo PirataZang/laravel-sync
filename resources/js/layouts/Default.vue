@@ -10,9 +10,9 @@
             </header>
             <div class="content">
                 <Menu
-                    :collapsed="!expanded && !isMobile"
-                    :overlay="isMobile"
-                    :showMenu="isMobile ? showMenuMobile : true"
+                    :collapsed="!expanded && !isMobileScreen "
+                    :overlay="isMobileScreen "
+                    :showMenu="isMobileScreen  ? showMenuMobile : true"
                     @close="showMenuMobile = false"
                     @update:showMenu="val => showMenuMobile = val"
                 />
@@ -27,6 +27,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Menu from '../components/Menu.vue'
+import { isMobile } from '../helpers'
 
 // desktop: controla se o menu está expandido (texto visível)
 const expanded = ref(false)
@@ -34,11 +35,11 @@ const expanded = ref(false)
 const showMenuMobile = ref(false)
 
 // detecta se estamos em tela pequena
-const isMobile = ref(window.innerWidth <= 768)
+const isMobileScreen = ref(isMobile())
 
 function handleResize() {
-    isMobile.value = window.innerWidth <= 768
-    if (!isMobile.value) {
+    isMobileScreen .value = window.innerWidth <= 768
+    if (!isMobileScreen .value) {
         // garante que overlay mobile esteja fechado ao voltar para desktop
         showMenuMobile.value = false
     }
@@ -52,7 +53,7 @@ onBeforeUnmount(() => {
 })
 
 function toggleMenu() {
-    if (isMobile.value) {
+    if (isMobileScreen .value) {
         showMenuMobile.value = !showMenuMobile.value
     } else {
         expanded.value = !expanded.value
