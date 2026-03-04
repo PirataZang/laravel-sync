@@ -71,6 +71,7 @@ function isActive(item) {
 .app-menu {
     position: fixed;
     height: stretch;
+    z-index: 10;
     width: 250px;
     background: #111827;
     color: #fff;
