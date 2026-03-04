@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FinancialReportController;
 use Illuminate\Support\Facades\Route;
 
 // --------------------------
@@ -36,6 +37,15 @@ Route::middleware("auth.token")->group(function () {
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
         Route::delete('/{id}', 'destroy');
+    });
+
+    //? Financial Reports
+    Route::prefix('reports')->controller(FinancialReportController::class)->group(function () {
+        Route::get('/monthly-summary', 'monthlySummary');
+        Route::get('/expenses-by-category', 'expensesByCategory');
+        Route::get('/income-vs-expense', 'incomeVsExpense');
+        Route::get('/monthly-transactions', 'monthlyTransactions');
+        Route::get('/complete-dashboard', 'completeDashboard');
     });
 });
 
