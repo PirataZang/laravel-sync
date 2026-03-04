@@ -7,18 +7,10 @@
                 <Input class="col-3" required v-model="form.email" label="Email" />
                 <Input class="col-3" type="password" v-model="form.password" label="Senha" />
                 <!-- custom select para perfil/role -->
-                <Select
-                    class="col-3"
-                    multiple
-                    label="Perfil"
-                    search
-                    v-model="form.role"
-                    :options="roleOptions"
-                    placeholder="Perfil"
-                />
+                <Select class="col-3" multiple label="Perfil" search v-model="form.role" :options="roleOptions" placeholder="Perfil" />
             </div>
-            <Button type="submit" @click="stay = false" :label="isEdit ? 'Salvar' : 'Cadastrar'" />
-            <Button type="submit" @click="stay = true" :label="isEdit ? 'Salvar e Continuar' : 'Cadastrar'" />
+            <Button nativeType="submit" @click="stay = false" :label="isEdit ? 'Salvar' : 'Cadastrar'" />
+            <Button nativeType="submit" @click="stay = true" :label="isEdit ? 'Salvar e Continuar' : 'Cadastrar'" />
         </form>
     </div>
 </template>
@@ -115,7 +107,7 @@ const reload = async () => {
 
 const save = async () => {
     try {
-        const endpoint = isEdit.value ? `user/${form.id}` : 'user/create'
+        const endpoint = isEdit.value ? `user/${form.id}` : 'user'
         const method = isEdit.value ? 'put' : 'post'
         const payload = { ...form }
         const response = await api[method](endpoint, payload)

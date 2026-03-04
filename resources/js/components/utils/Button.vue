@@ -1,14 +1,17 @@
 <template>
-    <a v-if="type == 'link'" :href="disabled ? undefined : href" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
-        <span v-html="label"></span>
+    <!-- Link externo -->
+    <a v-if="type === 'link'" :href="disabled ? undefined : href" target="_blank" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
+        <span v-html="label" />
     </a>
 
-    <router-link v-else-if="type == 'router'" :to="disabled ? '' : href" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
-        <span v-html="label"></span>
+    <!-- Router -->
+    <router-link v-else-if="type === 'router'" :to="disabled ? '' : href" class="button-style" :class="{ disabled }" :style="buttonStyle" @click.prevent="handleClick">
+        <span v-html="label" />
     </router-link>
 
-    <button v-else class="button-style" :style="buttonStyle" :disabled="disabled">
-        <span v-html="label"></span>
+    <!-- Botão normal -->
+    <button v-else :type="nativeType" class="button-style" :style="buttonStyle" :disabled="disabled">
+        <span v-html="label" />
     </button>
 </template>
 
@@ -16,12 +19,13 @@
 import { computed } from 'vue'
 import type { CSSProperties } from 'vue'
 
-type ButtonType = 'button' | 'link' | 'router'
+type ButtonVariant = 'button' | 'link' | 'router'
+type NativeType = 'button' | 'submit' | 'reset'
 
 interface Props {
     label: string
-    type?: ButtonType
-    to?: string
+    type?: ButtonVariant
+    nativeType?: NativeType
     href?: string
     color?: string
     disabled?: boolean
@@ -29,6 +33,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     type: 'button',
+    nativeType: 'button', // 🔥 padrão seguro
     color: '#0d3ecf',
     disabled: false,
 })

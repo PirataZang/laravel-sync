@@ -36,6 +36,7 @@ const props = defineProps({
             { name: 'home', to: '/', icon: 'fas fa-home', title: 'Página Inicial' },
             { name: 'users', to: '/user', icon: 'fas fa-users', title: 'Usuários' },
             { name: 'categories', to: '/category', icon: 'fas fa-list', title: 'Categorias' },
+            { name: 'transactions', to: '/transaction', icon: 'fas fa-exchange-alt', title: 'Transações' },
         ],
     },
     showMenu: { type: Boolean, default: false },
