@@ -12,42 +12,32 @@
     </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
+import type { CSSProperties } from 'vue'
 
-const props = defineProps({
-    label: {
-        type: String,
-        required: true,
-        default: 'Botão',
-    },
-    type: {
-        type: String,
-        default: '',
-    },
-    to: {
-        type: String,
-    },
+type ButtonType = 'button' | 'link' | 'router'
 
-    href: {
-        type: String,
-        default: null,
-    },
-    color: {
-        type: String,
-        default: '#0d3ecf', // azul padrão
-    },
-    disabled: {
-        type: Boolean,
-        default: false,
-    },
+interface Props {
+    label: string
+    type?: ButtonType
+    to?: string
+    href?: string
+    color?: string
+    disabled?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    type: 'button',
+    color: '#0d3ecf',
+    disabled: false,
 })
 
-const buttonStyle = computed(() => ({
+const buttonStyle = computed<CSSProperties>(() => ({
     '--btn-color': props.color,
 }))
 
-const handleClick = (e) => {
+const handleClick = (e: MouseEvent) => {
     if (props.disabled) {
         e.preventDefault()
         e.stopPropagation()

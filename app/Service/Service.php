@@ -26,9 +26,9 @@ abstract class Service
         if(empty($request['filters']))
             return $this->applyFilters($request);
 
-        $items = Cache::remember($this->key, 90, function () use ($request) {
+        // $items = Cache::remember($this->key, 90, function () use ($request) {
             return $this->applyFilters($request);
-        });
+        // });
         return $items;
     }
 

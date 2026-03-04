@@ -69,7 +69,7 @@ function isActive(item) {
 
 <style scoped lang="scss">
 .app-menu {
-    position: relative;
+    position: fixed;
     height: stretch;
     width: 250px;
     background: #111827;

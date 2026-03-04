@@ -11,13 +11,13 @@
                 </div>
                 <div class="buttons">
                     <Button color="#28a745" label="<i class='fa-solid fa-plus'></i> Criar" type="router" :href="'/user/form'" />
-                    <Button color="#007bff" label="<i class='fa-solid fa-pen'></i> Editar" type="router" :disabled="selectedIds.length !== 1" :href="`/user/form/${selectedIds[0]}`" />
+                    <Button v-if="!isMobile()" color="#007bff" label="<i class='fa-solid fa-pen'></i> Editar" type="router" :disabled="selectedIds.length !== 1" :href="`/user/form/${selectedIds[0]}`" />
                     <Button color="#dc3545" label="<i class='fa-solid fa-trash-can'></i> Deletar" :disabled="selectedIds.length === 0" @click="deleteUsers" />
                 </div>
             </div>
             <div class="grid-container">
                 <Grid v-if="!isMobile()" :rowData="data" :paginationPageSize="pageSize" :columnDefs="colunas" @update:selection="handleSelection" @update:page="currentPage = $event" @update:pageSize="pageSize = $event" />
-                <UserCard v-else  :users="data" @select="handleSelection" />
+                <UserCard v-else @delete="deleteUsers($event)" :users="data" @select="handleSelection" />
             </div>
         </div>
     </div>

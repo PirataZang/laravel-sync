@@ -8,26 +8,39 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import type { InputHTMLAttributes } from 'vue'
 
-const attrs = useAttrs()
+/* Tipos possíveis para input */
+type InputType = 'text' | 'password' | 'email' | 'number' | 'date' | 'search' | 'tel' | 'url'
 
-const model = defineModel({
-    type: [String, Number],
+interface Props {
+    width?: string
+    label?: string
+    placeholder?: string
+    type?: InputType
+    disabled?: boolean
+    small?: boolean
+    name?: string | null
+    autocomplete?: string | null
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    width: '',
+    type: 'text',
+    disabled: false,
+    small: false,
+    name: null,
+    autocomplete: null,
+})
+
+/* v-model tipado */
+const model = defineModel<string | number>({
     default: '',
 })
 
-const props = defineProps({
-    width: { type: String, default: '' },
-    label: String,
-    placeholder: String,
-    type: { type: String, default: 'text' },
-    disabled: { type: Boolean, default: false },
-    small: { type: Boolean, default: false },
-    name: { type: String, default: null },
-    autocomplete: { type: String, default: null },
-})
+const attrs = useAttrs()
 
 const generatedName = 'inp_' + Math.random().toString(36).slice(2, 9)
 
@@ -39,8 +52,9 @@ const autocompleteValue = computed(() => {
     return 'off'
 })
 
+/* remove class do attrs para não duplicar */
 const inputAttrs = computed(() => {
-    const { class: _class, ...rest } = attrs
+    const { class: _class, ...rest } = attrs as InputHTMLAttributes
     return rest
 })
 </script>

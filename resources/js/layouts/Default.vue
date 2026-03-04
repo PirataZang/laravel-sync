@@ -9,13 +9,15 @@
                 </div>
             </header>
             <div class="content">
-                <Menu
-                    :collapsed="!expanded && !isMobileScreen "
-                    :overlay="isMobileScreen "
-                    :showMenu="isMobileScreen  ? showMenuMobile : true"
-                    @close="showMenuMobile = false"
-                    @update:showMenu="val => showMenuMobile = val"
-                />
+                <div class="menu">
+                    <Menu
+                        :collapsed="!expanded && !isMobileScreen "
+                        :overlay="isMobileScreen "
+                        :showMenu="isMobileScreen  ? showMenuMobile : true"
+                        @close="showMenuMobile = false"
+                        @update:showMenu="val => showMenuMobile = val"
+                    />
+                </div>
                 <div class="page-content">
                     <slot />
                 </div>
@@ -122,6 +124,13 @@ const user = JSON.parse(localStorage.getItem('user'))
             @media (max-width: 768px) {
                 padding: 10px;
                 gap: 0px;
+            }
+
+            .menu{
+                width: 60px;
+                @media (max-width: 768px) {
+                    width: auto;
+                }
             }
 
             .page-content {
