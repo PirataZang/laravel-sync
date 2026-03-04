@@ -5,6 +5,9 @@ import Login from '../pages/Login.vue'
 import UserList from '../pages/user/UserList.vue'
 import UserForm from '../pages/user/UserForm.vue'
 import CategoryList from '../pages/category/CategoryList.vue'
+import CategoryForm from '../pages/category/CategoryForm.vue'
+import TransactionList from '../pages/transaction/TransactionList.vue'
+import TransactionForm from '../pages/transaction/TransactionForm.vue'
 
 const routes = [
     {
@@ -37,6 +40,27 @@ const routes = [
         path: '/category',
         component: CategoryList,
         name: 'CategoryList',
+        meta: { layout: 'default' }
+    },
+    {
+        path: '/category/form/:id?',
+        component: CategoryForm,
+        name: 'CategoryForm',
+        meta: { layout: 'default' }
+    },
+
+    // Transaction
+    {
+        path: '/transaction',
+        component: TransactionList,
+        name: 'TransactionList',
+        meta: { layout: 'default' }
+    },
+    {
+        path: '/transaction/form/:id?',
+        component: TransactionForm,
+        name: 'TransactionForm',
+        meta: { layout: 'default' }
     }
 ]
 

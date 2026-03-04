@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Traits\SearchableFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 abstract class Service
@@ -23,11 +24,11 @@ abstract class Service
 
     public function index($request = [])
     {
-        if(empty($request['filters']))
+        if (empty($request['filters']))
             return $this->applyFilters($request);
 
         // $items = Cache::remember($this->key, 90, function () use ($request) {
-            return $this->applyFilters($request);
+        return $this->applyFilters($request);
         // });
         return $items;
     }
@@ -35,6 +36,7 @@ abstract class Service
     public function create(array $data)
     {
         Cache::forget($this->key);
+        $data['user_id'] = auth()->id();
         return $this->model->create($data);
     }
 

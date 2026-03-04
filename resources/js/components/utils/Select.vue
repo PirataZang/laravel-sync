@@ -17,6 +17,10 @@
                     {{ selectedOptions[0]?.label || placeholder || '' }}
                 </span>
             </template>
+            <!-- clear all icon for single or multiple -->
+            <button v-if="canClear" class="clear-btn" @click.stop="clear" aria-label="Limpar seleção">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
         </div>
 
@@ -48,14 +52,22 @@ interface Option {
     disabled?: boolean
 }
 
-const props = defineProps<{
-    options: Option[]
-    label?: string
-    modelValue: string | number | Array<string | number> | null
-    multiple?: boolean
-    search?: boolean
-    placeholder?: string
-}>()
+const props = withDefaults(
+    defineProps<{
+        options: Option[]
+        label?: string
+        modelValue: string | number | Array<string | number> | null
+        multiple?: boolean
+        search?: boolean
+        placeholder?: string
+        clearable?: boolean
+    }>(),
+    {
+        multiple: false,
+        search: false,
+        clearable: true,
+    },
+)
 
 const emit = defineEmits<{
     (e: 'update:modelValue', val: string | number | Array<string | number> | null): void
@@ -65,6 +77,7 @@ const emit = defineEmits<{
 const multiple = computed(() => !!props.multiple)
 const search = computed(() => !!props.search)
 const placeholder = computed(() => props.placeholder || '')
+const clearable = computed(() => !!props.clearable)
 
 const isOpen = ref(false)
 const searchTerm = ref('')
@@ -93,6 +106,14 @@ const filteredOptions = computed(() => {
 
 const selectedOptions = computed(() => props.options.filter((o) => selectedValues.value.includes(o.value)))
 
+const canClear = computed(() => {
+    if (!clearable.value) return false
+    if (multiple.value) {
+        return selectedOptions.value.length > 0
+    }
+    return selectedOptions.value.length > 0
+})
+
 function isSelected(opt: Option) {
     return selectedValues.value.includes(opt.value)
 }
@@ -120,6 +141,24 @@ function removeOption(opt: Option) {
     selectedValues.value = selectedValues.value.filter((v) => v !== opt.value)
     emit('update:modelValue', selectedValues.value)
     emit('change', selectedValues.value)
+}
+
+function clear() {
+    if (!canClear.value) return
+    if (multiple.value) {
+        selectedValues.value = []
+        emit('update:modelValue', [])
+        emit('change', [])
+    } else {
+        selectedValues.value = []
+        emit('update:modelValue', null)
+        emit('change', null)
+    }
+    // close dropdown and reset search if needed
+    close()
+    if (search.value) {
+        searchTerm.value = ''
+    }
 }
 
 function toggle() {
@@ -169,10 +208,11 @@ onBeforeUnmount(() => {
 
 .select-display {
     border: 1px solid #ccc;
-    padding: 2px;
+    padding: 2px 10px;
     display: flex;
     border-radius: 7px;
     align-items: center;
+    font-size: 14px;
     min-height: 32px;
     cursor: pointer;
     background: #fff;
@@ -261,6 +301,7 @@ onBeforeUnmount(() => {
     .option {
         padding: 6px 8px;
         cursor: pointer;
+        font-size: 14px;
         display: flex;
         align-items: center;
         transition: background 0.15s ease;
@@ -290,6 +331,23 @@ onBeforeUnmount(() => {
 
 .single-value {
     flex: 1;
+}
+
+.clear-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.clear-btn:hover {
+    color: #000;
 }
 
 /* Transition */

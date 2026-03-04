@@ -16,7 +16,6 @@ class Transaction extends Model
         "name",
         "user_id",
         "category_id",
-        "name",
         "description",
         "amount",
         "created_at",
@@ -24,7 +23,7 @@ class Transaction extends Model
     ];
 
     protected $casts = [
-        "amount" => "decimal",
+        // "amount" => "decimal",
     ];
 
 
