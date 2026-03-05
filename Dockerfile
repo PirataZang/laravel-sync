@@ -1,23 +1,37 @@
-# build a PHP container with the extensions that the Laravel project needs
-FROM php:8.1-fpm
-
-# system dependencies required by Laravel or for building packages
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install pdo_mysql zip \
-    && rm -rf /var/lib/apt/lists/*
-
-# composer is already available in a separate image, copy it
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+FROM php:8.5-cli
 
 WORKDIR /var/www/html
 
-# copy entrypoint (optional) if you want to run migrations/seeds etc.
-# COPY docker-entrypoint.sh /usr/local/bin/
-# RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Dependências do sistema
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    zip \
+    unzip \
+    libpq-dev \
+    libzip-dev \
+    gnupg \
+    ca-certificates
 
-# default command just starts php-fpm
-CMD ["php-fpm"]
+# Extensões PHP essenciais
+RUN docker-php-ext-install pdo pdo_pgsql zip
+
+# Redis extension (phpredis)
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
+# =========================
+# Node 22 (mais recente LTS)
+# =========================
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs
+
+# Composer oficial
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Limpar cache apt
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+EXPOSE 8000 5173
+
+CMD php artisan serve --host=0.0.0.0 --port=8000
