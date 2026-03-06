@@ -21,7 +21,6 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        ds($request->all());
         return $this->service->create($request->all());
     }
 
