@@ -21,6 +21,14 @@ services:
         networks:
             - app-network
 
+        command: >
+            bash -c "composer install && 
+                     php artisan key:generate --force && 
+                     php artisan migrate --force && 
+                     php artisan serve --host=0.0.0.0 --port=8000
+                     php artisan tinker --execute="App\Models\User::create(['name' => 'Master','email' => 'master@email.com','password' => Illuminate\Support\Facades\Hash::make('1234')]) &&
+                     npm install"
+
     postgres:
         image: postgres:16
         container_name: postgres

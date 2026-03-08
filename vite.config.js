@@ -13,6 +13,10 @@ export default defineConfig({
         vue(),
     ],
     server: {
+        host: '0.0.0.0', // Permite conexões externas ao container
+        hmr: {
+            host: 'localhost',
+        },
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
