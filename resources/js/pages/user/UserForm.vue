@@ -18,7 +18,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import Input from '../../components/utils/Input.vue'
-import Button from '../../components/Utils/Button.vue'
+import Button from '../../components/utils/Button.vue'
 import { useRoute } from 'vue-router'
 import { api } from '../../service/api'
 import Swal from 'sweetalert2'

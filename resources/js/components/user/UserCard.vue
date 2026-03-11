@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import Button from '../Utils/Button.vue'
+import Button from '../utils/Button.vue'
 
 interface User {
     id: number

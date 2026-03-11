@@ -19,7 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import Input from '../components/utils/Input.vue'
-import Button from '../components/Utils/Button.vue'
+import Button from '../components/utils/Button.vue'
 import { api } from '../service/api'
 import router from '../router/routes'
 import Swal from 'sweetalert2'
