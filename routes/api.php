@@ -43,6 +43,12 @@ Route::middleware("auth.token")->group(function () {
     Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
         Route::get('/', 'index');
     });
+
+    //? Settings
+    Route::prefix('setting')->controller(\App\Http\Controllers\SettingController::class)->group(function () {
+        Route::get('/', 'show');
+        Route::put('/', 'update');
+    });
 });
 
 

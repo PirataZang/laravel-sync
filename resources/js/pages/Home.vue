@@ -36,6 +36,7 @@
                         type="doughnut"
                         :labels="charts.income_vs_expense.labels"
                         :data="charts.income_vs_expense.data"
+                        borderColor="transparent"
                         :backgroundColor="charts.income_vs_expense.backgroundColor"
                         label="Total"
                     />
@@ -46,6 +47,7 @@
                         type="pie"
                         :labels="charts.expenses_by_category.labels"
                         :data="charts.expenses_by_category.data"
+                        borderColor="transparent"
                         :backgroundColor="charts.expenses_by_category.backgroundColor"
                         label="Despesas"
                     />
@@ -54,6 +56,7 @@
                     <h3>Receitas por Categoria</h3>
                     <ChartsBase
                         type="pie"
+                        borderColor="transparent"
                         :labels="charts.incomes_by_category.labels"
                         :data="charts.incomes_by_category.data"
                         :backgroundColor="charts.incomes_by_category.backgroundColor"

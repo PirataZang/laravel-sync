@@ -8,6 +8,7 @@ import CategoryList from '../pages/category/CategoryList.vue'
 import CategoryForm from '../pages/category/CategoryForm.vue'
 import TransactionList from '../pages/transaction/TransactionList.vue'
 import TransactionForm from '../pages/transaction/TransactionForm.vue'
+import Settings from '../pages/Settings.vue'
 
 const routes = [
     {
@@ -60,6 +61,14 @@ const routes = [
         path: '/transaction/form/:id?',
         component: TransactionForm,
         name: 'TransactionForm',
+        meta: { layout: 'default' }
+    },
+
+    // Settings
+    {
+        path: '/settings',
+        component: Settings,
+        name: 'Settings',
         meta: { layout: 'default' }
     }
 ]
